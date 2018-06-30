@@ -1,0 +1,94 @@
+---
+title: "chapter1"
+author: "kuldeep parashar"
+date: "29 June 2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+##########################################################################################################################
+
+#Chapter1
+tidying means making the data consisten enough and transforming means making more variable from the initial one on which we can count or are the one which are field of intrest but not directly derivable both this process as  sum is known as data wrangling and  a very important part of data sccience so must be pad attection on it
+
+after this we have two resource to draw knowledge or insiht from the data by visulising nd by modelling 
+both have some cons and pros and this thing acta s cycle till we reach the optimal level after that all the knowledge is give as a presentation or  as a dynamic app or presentation 
+
+Basically the data problem can occur in 3 ways:-
+its just a 2;3 gb data can be easily handled by r
+its 10-100 gb of data big.table
+other then this may be not need that big data only need summry and all may be only so keep in mind to find the correct subset to  answer a particular  Question 
+it may also be possible that the data can be act a small chunks ,which are independent and can br computed alone
+so here we would use sparklr or big data
+
+#####models are often used for exploration, and with a little care you can use visualisation for confirmation.
+so here we can do data exploration,transformation ,=and modelling 
+first we start with modelling and using the ggplot2 library
+we will use the dataframe from ggplot2 pacakge name mpg
+
+```{r warning=FALSE, include=FALSE}
+library(ggplot2)
+library(tidyverse)
+
+```
+now we will plot usinf ggplot library
+```{r}
+ggplot(data=mpg,aes(y=displ,x=hwy))+geom_point()
+```
+so its the first plot of the book and wel know and great even 
+
+```{r}
+ dim(mpg)
+summary(mpg)
+ggplot(data=mpg,aes(x=drv,y=hwy))+geom_point()
+```
+now after this we are going to changw the aesthetic properties of the data points, these properties could be the shape size and colour of the data point , all these can be changed inthe aesthetic part of the ggplot 
+
+```{r}
+ggplot(data=mpg,aes(x=displ,y=hwy,color=class))+geom_point()
+```
+in above we had used the color aesthtic to make the graph but we can use the size aesthetic too to make it a greart thing 
+but in this scinario its not a great idea, infact its a bad one as we know that for this case its bbatter that all are categorical
+```{r}
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy, size = class))
+```
+
+as its clear that using shape aesthetic in this case is not that great,
+now we are going to make thing more clear by using the alpha aesthtic use for transparency 
+and shape aesthetic
+```{r}
+# Left
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy, alpha = class))
+
+# Right
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy, shape = class))
+```
+so here is limitation of using the shape aesthetic it can max distinguish only 3
+
