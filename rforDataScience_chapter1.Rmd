@@ -90,5 +90,90 @@ ggplot(data = mpg) +
 ggplot(data = mpg) + 
   geom_point(mapping = aes(x = displ, y = hwy, shape = class))
 ```
-so here is limitation of using the shape aesthetic it can max distinguish only 3
+so here is limitation of using the shape aesthetic it can max distinguish only 6 aes
+
+and also behind the scene the aes function is mapping the x and y given to it and then create a visual layer 
+add legends to it and create axis as per the data points we can manully do this using
+
+```{r}
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy), color = "blue")
+```
+we can also use stroke aesthetic too so that
+any conditional operation on aesthetic color give ys a  bollean plot 
+showing which point obey that condition and which are nor t 
+```{r}
+ggplot(data=mpg)+geom_point(mapping = aes(x = displ, y = hwy,color=(displ<5) ))
+
+```
+shape aesthetic can be used to change the border width 
+
+###facet_wrap() 
+can be used to make subplot based on some categorical value, sothat we can individual or cattegoricaly study these all
+
+
+```{r}
+ggplot(data=mpg,aes(x=displ,y=hwy))+geom_point()+facet_wrap(~class,nrow = 2)
+```
+here we are being able to see the plot based on each category
+if we want to make grph on basis of combination of two then we use facet_grid()
+both these have only few categorn so easy to view
+```{r}
+ggplot(data=mpg,aes(x=displ,y=hwy))+geom_point()+facet_grid(drv~cyl)
+
+```
+lets try examples too
+```{r}
+ggplot(data=mpg,aes(x=displ))+geom_histogram()+facet_grid(hwy~class)
+```
+no this plot is hactic rather than any other thing so keep in mind not o use continious var for facet_grid and is use make bin size large or the data rane must be low
+
+we can plot same x and y with different geom function too and like for pointplot and  smooth
+these are ploteed on same data but from different 
+
+```{r}
+ggplot(data=mpg)+geom_point(mapping = aes(x = displ, y = hwy,color=(displ<5) ))
+ggplot(data=mpg)+geom_smooth(mapping = aes(x = displ, y = hwy ))
+
+ggplot(data = mpg)+geom_smooth(mapping = aes(x = displ, y = hwy, linetype = drv))
+
+
+```
+
+so by adding layer we can make graphs containg differnt geom object but its also came up of redundancy that if we wanrt to change only 1 legend it must be changed in bot 
+
+
+##solution>
+try to gve mapping to at once to ggplot and after that change the filters or the relevant layers
+```{r}
+####the redundant way
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy)) +
+  geom_smooth(mapping = aes(x = displ, y = hwy))
+######################################################### non redundant way
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) + 
+  geom_point(mapping = aes(color = class)) + 
+  geom_smooth()
+
+```
+we can also do things like drawing line for only a particular class
+```
+```{r}
+ggplot(data = diamonds) + 
+  geom_bar(mapping = aes(x = cut, fill = clarity))
+```
+```{r}
+  seq(1,10,length.out = 5)
+y<-seq(1,10,length.out = 5)
+
+```
+filter is used for filtring the data on some certain condition
+```{r}
+library(tidyverse)
+ggplot(data=mpg)+geom_point(mapping = aes(x=displ,y=hwy))
+filter(mpg,cyl==8)
+filter(diamonds,carat>5)
+```
+
+
 
