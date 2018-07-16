@@ -1,0 +1,94 @@
+---
+title: "chapter5"
+author: "kuldeep parashar"
+date: "30 June 2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+#chapter5
+##data wrangling
+```{r}
+library(nycflights13)
+library(tidyverse)
+```
+these to are the prerequsite tto do these exercise and all and keep it simple   
+
+```{r}
+library(nycflights13)
+flights
+```
+ the basic takeout  are :
+int stands for integers, dbl for real nomchar for char nad strings,dttm for date time
+
+dbl stands for doubles, or real numbers.
+
+chr stands for character vectors, or strings.
+dttm stands for date-times (a date + a time)
+```{r}
+summary(flights)
+filter(flights,month==1,carrier=='UA')
+
+
+```
+so it have multiple no of function some of them are 
+select filter mutate  arrange summarise:-
+
+filter can be used to get a new data frame the existing one after applying desired constarints over it 
+
+
+```{r}
+filter(flights,month==11|month==12)
+```
+
+so here we have used fumction  but also we use or operator to fetch data of both months 11 and 12 
+we can easily incorporate de morgans law init 
+
+like to find the data whrere the total delay is not greater then 2hr then go ahead
+
+```{r}
+library(dplyr)
+
+flights%>%filter(!(arr_delay>2|dep_delay>2))
+```
+basicallly seelect function conv4ert all the string query in small cases and then ssearch fpor the column name 
+```{r}
+flights_sml <- select(flights, 
+  year:day, 
+  ends_with("delay"), 
+  distance, 
+  air_time
+)
+```
+now mutate function is being used to  add real new predicators in the data frame  
+mutate make real changes to the data frame that a=is the new predicators  are directly add to the dataframe while the transmute function can be used to just get the new predicator and also the selected predicator and in output produces new dataframe
+```{r}
+transmute(flights_sml,totaldelay=dep_delay+arr_delay)
+
+```
+no we can se we had just make a new predicator and also due transmute function this works pretty good even 
+#using baseballl data
+
