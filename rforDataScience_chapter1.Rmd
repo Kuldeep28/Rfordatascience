@@ -174,6 +174,11 @@ ggplot(data=mpg)+geom_point(mapping = aes(x=displ,y=hwy))
 filter(mpg,cyl==8)
 filter(diamonds,carat>5)
 ```
+now if we want o represent the continious data but in context of categorical data then w will put categorical into color= cat, and also use frequency poly to reresent the data
+
+```{r}
+ggplo
+```
 
 
 

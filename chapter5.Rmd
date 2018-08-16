@@ -92,3 +92,28 @@ transmute(flights_sml,totaldelay=dep_delay+arr_delay)
 no we can se we had just make a new predicator and also due transmute function this works pretty good even 
 #using baseballl data
 
+```{r}
+library(Lahman)
+library(tibble)
+library(dplyr)
+library(ggplot2)
+batting<-as_tibble(Lahman::Batting)
+
+batters<-batting%>%group_by(playerID)%>%
+  summarise(
+    ba=sum(H,na.rm = TRUE)/sum(AB,na.rm = TRUE),
+    ab=sum(AB,na.rm=TRUE)
+  )
+batters%>%
+  filter(ab>100)%>%
+  ggplot(mapping = aes(x=ab,y=ba))+
+  geom_point()+geom_smooth(se=FALSE)
+```
+not cancelled data frame contains all the flights which doest have arrival and departure time in the flight data set
+```{r}
+names(flights)
+top_n(flights,10)
+not_cancelled<-flights%>%
+  group_by(flight,year,month,day)%>%filter(!is.na(dep_time),!is.na(arr_time))
+```
+
